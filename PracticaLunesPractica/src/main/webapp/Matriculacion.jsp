@@ -10,11 +10,16 @@
 <body>
 	<jsp:useBean id="usuariobean"
 		class="org.iesalixar.servidor.david.UsuarioModel" scope="request" />
+	<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	<fmt:setBundle basename="interface" />
+
+	
 	<%
 	if (session.isNew()) {
 	%>
 	<form method="post">
-		<input type="submit" name="boton" value="Entrar">
+		<input type="submit" name="boton" value="<fmt:message key="entrar" />">
 	</form>
 	<%
 	} else {

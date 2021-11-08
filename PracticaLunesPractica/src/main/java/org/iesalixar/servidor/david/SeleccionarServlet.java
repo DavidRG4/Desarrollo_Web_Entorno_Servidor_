@@ -40,7 +40,7 @@ public class SeleccionarServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		entrada e=request.getParameter("entrada");
+		String  e=request.getParameter("entrada");
 		if (!session.isNew()&&e!=null) {
 			UsuarioModel nombrebean = (UsuarioModel) session.getAttribute("nombre");
 			String nombre = request.getParameter("nombre");

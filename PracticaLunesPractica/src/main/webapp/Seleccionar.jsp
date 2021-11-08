@@ -8,6 +8,11 @@
 </head>
 <body>
 	<jsp:include page="Barra.jsp" />
+	<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	<fmt:setBundle basename="interface" />
+ 
+	<fmt:message key="usuario" />
 	<p></p>
 	<form method="post">
 		<div>

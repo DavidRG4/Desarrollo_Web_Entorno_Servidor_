@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<fmt:setBundle basename="interface" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +11,12 @@
 </head>
 <body>
 	<jsp:include page="Barra.jsp" />
-<p></p>
+	<p></p>
+
+
+	<fmt:message key="usuario" />
+
+	<p></p>
 	<%
 	String nombre = (String) session.getAttribute("nombre");
 	String apellido = (String) session.getAttribute("apellido");
@@ -17,7 +25,7 @@
 	<div>
 		<p>
 			Nombre:
-			<%= nombre %></p>
+			<%=nombre%></p>
 		<p>
 			Apellido:
 			<%=apellido%></p>
