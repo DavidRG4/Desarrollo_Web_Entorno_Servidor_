@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head></head>
+
+<body>
+	<div>
+		<div>
+			<div>
+				<h1>Primer Formulario</h1>
+				<div th:if="${form.vipon == null}">
+					<form action="#" th:action="@{/form}" th:object="${form}" method="post">
+
+						<label for="grupo">Grupo</label>
+						<select id="grupo" th:field="*{grupo}" multiple>
+							<option th:each=" grupo : ${grupos}" th:value="${grupo}" th:text="${grupo}">
+						</select>
+
+						<label for="DNI">Numero Personas</label>
+						<input type="number" id="personas" th:field="*{personas}">
+
+
+						<p>
+							<input type="radio" name="vip" value="VIP" id="VIP" th:field="*{vipon}">
+							<label for="VIP">VIP</label>
+						</p>
+						<p>
+							<input type="radio" name="vip" value="Normal" id="Normal" th:field="*{vipon}">
+							<label for="DIW">Normal</label>
+						</p>
+
+
+						<button type="submit">ENVIAR</button>
+					</form>
+				</div>
+
+
+				<div th:unless="${form.vipon == null}">
+
+					<!-- EXPRESIONES MÁS COMPLEJAS USANDO th:text -->
+					<h3 th:text="| VIP o no : ${form.vipon}|"></h3>
+					<h3 th:text="| personas: ${form.personas}|"></h3>
+
+					<ul>
+						<li th:each="grupo : ${form.grupo}" th:text="${grupo}"></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

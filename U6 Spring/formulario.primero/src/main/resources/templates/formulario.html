@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head></head>
+
+<body>
+	<div>
+		<div>
+			<div>
+				<h1>Primer Formulario</h1>
+				<div th:if="${form.firstName == null}">
+				
+					<form action="#" th:action="@{/form}" th:object="${form}" method="post">
+						<label for="firstName">First Name</label>
+						<input type="text" id="firstName" th:field="*{firstName}" required>
+						<label for="lastName">Last Name</label>
+						<input type="text" id="lastName" th:field="*{lastName}" required>
+						<label for="DNI">DNI</label>
+						<input type="text" id="DNI" th:field="*{DNI}" required>
+
+						<label for="curso">Curso</label>
+						<select id="curso" th:field="*{grade}">
+							<option th:each=" curso : ${cursos}" th:value="${curso}" th:text="${curso}">
+						</select>
+
+						<h6>Materias</h6>
+						<p>
+							<input type="checkbox" value="DWES" id="DWES" th:field="*{asignents}">
+							<label for="DWES">DWES</label>
+						</p>
+						<p>
+							<input type="checkbox" value="DIW" id="DIW" th:field="*{asignents}">
+							<label for="DIW">DIW</label>
+						</p>
+						<p>
+							<input type="checkbox" value="EMP" id="EMP" th:field="*{asignents}">
+							<label for="EMP">EMP</label>
+						</p>
+						<p>
+							<input type="checkbox" value="DWEC" id="DWEC" th:field="*{asignents}">
+							<label for="DWEC">DWEC</label>
+						</p>
+
+						<button type="submit">ENVIAR</button>
+					</form>
+				</div>
+
+
+				<div th:unless="${form.firstName == null}">
+
+					<!-- EXPRESIONES MÁS COMPLEJAS USANDO th:text -->
+					<h3 th:text="| First name: ${form.firstName}|"></h3>
+					<h3 th:text="| Last name: ${form.lastName}|"></h3>
+					<h3 th:text="| DNI : ${form.DNI}| "></h3>
+					<h3 th:text="| Grade: ${form.grade}|"></h3>
+
+					<ul>
+						<li th:each="materia : ${form.asignents}" th:text="${materia}"></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
