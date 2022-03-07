@@ -1,11 +1,9 @@
 package org.iesalixar.servidor.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "alumno")
@@ -13,25 +11,27 @@ public class Alumno {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(nullable=false)
+	@Column(nullable=false,length = 9,unique = true)
 	private String nif;
 	@Column(nullable=false)
 	private String nombre;
 	@Column(nullable=false)
 	private String apellido1;
-	@Column(nullable=false)
+	@Column(nullable= true)
 	private String apellido2;
 	@Column(nullable=false)
 	private String ciudad;
 	@Column(nullable=false)
 	private String direccion;
-	@Column(nullable=false)
+	@Column(nullable=true)
 	private String telefono;
-	@Column(nullable=false)
-	private String fecha_nacimiento;
-	@Column(nullable=false)
+	@Column(name="fecha_nacimiento",nullable=false)
+	@Temporal(TemporalType.DATE)
+	private Date fecha_nacimiento;
+	@Column(nullable=false, length = 1)
 	private String sexo;
-
+	@OneToMany(mappedBy="alumno",cascade=CascadeType.ALL, orphanRemoval=true)
+	private Set<AlumnoAsignatura> alumnoAsignaturas = new HashSet<>();
 	public Alumno() {
 		// TODO Auto-generated constructor stub
 	}
@@ -106,12 +106,20 @@ public class Alumno {
 		this.telefono = telefono;
 	}
 
-	public String getFecha_nacimiento() {
+	public Date getFecha_nacimiento() {
 		return fecha_nacimiento;
 	}
 
-	public void setFecha_nacimiento(String fecha_nacimiento) {
+	public void setFecha_nacimiento(Date fecha_nacimiento) {
 		this.fecha_nacimiento = fecha_nacimiento;
+	}
+
+	public Set<AlumnoAsignatura> getAlumnoAsignaturas() {
+		return alumnoAsignaturas;
+	}
+
+	public void setAlumnoAsignaturas(Set<AlumnoAsignatura> alumnoAsignaturas) {
+		this.alumnoAsignaturas = alumnoAsignaturas;
 	}
 
 	public String getSexo() {

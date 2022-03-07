@@ -1,11 +1,9 @@
 package org.iesalixar.servidor.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "profesor")
@@ -13,27 +11,32 @@ public class Profesor {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private String nif;
-	@Column(nullable = false)
+	@Column
 	private String nombre;
-	@Column(nullable = false)
+	@Column
 	private String apellido1;
-	@Column(nullable = false)
+	@Column
 	private String apellido2;
-	@Column(nullable = false)
+	@Column
 	private String ciudad;
-	@Column(nullable = false)
+	@Column
 	private String direccion;
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private String telefono;
-	@Column(nullable = false)
-	private String fecha_nacimiento;
-	@Column(nullable = false)
-	private String sexo;
-	@Column(nullable = false)
-	private Long id_departamento;
+	@Column(name="fecha_nacimiento")
+	@Temporal(TemporalType.DATE)
+	private Date fecha_nacimiento;
 
+	@Column
+	private String sexo;
+	@ManyToOne
+	@JoinColumn(name="id_departamento")
+	Departamento departamento;
+
+	@OneToMany(mappedBy="profesor",cascade=CascadeType.ALL, orphanRemoval=true)
+	private Set<Asignatura> Asignaturas = new HashSet<>();
 	public Profesor() {
 		// TODO Auto-generated constructor stub
 	}
@@ -94,14 +97,6 @@ public class Profesor {
 		this.telefono = telefono;
 	}
 
-	public String getFecha_nacimiento() {
-		return fecha_nacimiento;
-	}
-
-	public void setFecha_nacimiento(String fecha_nacimiento) {
-		this.fecha_nacimiento = fecha_nacimiento;
-	}
-
 	public String getSexo() {
 		return sexo;
 	}
@@ -118,12 +113,19 @@ public class Profesor {
 		this.id = id;
 	}
 
-	public Long getId_departamento() {
-		return id_departamento;
+	public Date getFecha_nacimiento() {
+		return fecha_nacimiento;
 	}
 
-	public void setId_departamento(Long id_departamento) {
-		this.id_departamento = id_departamento;
+	public void setFecha_nacimiento(Date fecha_nacimiento) {
+		this.fecha_nacimiento = fecha_nacimiento;
 	}
 
+	public Departamento getDepartamento() {
+		return departamento;
+	}
+
+	public void setDepartamento(Departamento departamento) {
+		this.departamento = departamento;
+	}
 }

@@ -1,11 +1,8 @@
 package org.iesalixar.servidor.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "asignatura")
@@ -20,13 +17,17 @@ public class Asignatura {
 	@Column(nullable = false)
 	private String tipo;
 	@Column(nullable = false)
-	private String curso;
+	private Integer curso;
 	@Column(nullable = false)
-	private String cuatrimestre;
-	@Column(nullable = false)
-	private Long id_profesor;
-	@Column(nullable = false)
-	private Long id_grado;
+	private Integer cuatrimestre;
+	@ManyToOne
+	@JoinColumn(name = "id_profesor")
+	private Profesor profesor;
+	@ManyToOne
+	@JoinColumn(name = "id_grado")
+	private Grado grado;
+	@OneToMany(mappedBy="asignatura",cascade=CascadeType.ALL,orphanRemoval = true)
+	private Set<AlumnoAsignatura> alumnosAsignatura = new HashSet<>();
 
 	public Asignatura() {
 		// TODO Auto-generated constructor stub
@@ -56,22 +57,6 @@ public class Asignatura {
 		this.tipo = tipo;
 	}
 
-	public String getCurso() {
-		return curso;
-	}
-
-	public void setCurso(String curso) {
-		this.curso = curso;
-	}
-
-	public String getCuatrimestre() {
-		return cuatrimestre;
-	}
-
-	public void setCuatrimestre(String cuatrimestre) {
-		this.cuatrimestre = cuatrimestre;
-	}
-
 	public Long getId() {
 		return id;
 	}
@@ -80,20 +65,35 @@ public class Asignatura {
 		this.id = id;
 	}
 
-	public Long getId_profesor() {
-		return id_profesor;
+	public Integer getCurso() {
+		return curso;
 	}
 
-	public void setId_profesor(Long id_profesor) {
-		this.id_profesor = id_profesor;
+	public void setCurso(Integer curso) {
+		this.curso = curso;
 	}
 
-	public Long getId_grado() {
-		return id_grado;
+	public Integer getCuatrimestre() {
+		return cuatrimestre;
 	}
 
-	public void setId_grado(Long id_grado) {
-		this.id_grado = id_grado;
+	public void setCuatrimestre(Integer cuatrimestre) {
+		this.cuatrimestre = cuatrimestre;
 	}
 
+	public Profesor getProfesor() {
+		return profesor;
+	}
+
+	public void setProfesor(Profesor profesor) {
+		this.profesor = profesor;
+	}
+
+	public Grado getGrado() {
+		return grado;
+	}
+
+	public void setGrado(Grado grado) {
+		this.grado = grado;
+	}
 }
