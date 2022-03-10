@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head th:replace="fragments/bootstrap::head(title='grados')"></head>
+
+<body>
+	<div class="container mt-5">
+		<div class="row mt-5 justify-content-center">
+			<header th:insert="fragments/parts::menu"></header>
+			<div class="col-8">
+				<input sec:authorize="hasRole('ROLE_ADMIN')" type="button" value="Añadir Grado"
+					th:href="@{/grados/addGrado}" />
+				<table class="table table-stripped table-hover">
+					<thead class="table-light">
+						<tr>
+							<th>ID</th>
+							<th>Nombre</th>
+							<th>Asignaturas</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="g : ${grados}">
+							<td th:text="${g.getId()}"></td>
+							<td th:text="${g.getNombre()}"></td>
+							<td ><a class="nav-link text-white"
+									th:href="@{'/grados/asignatura?codigo='+${g.getId()}}"><i
+										class="bi bi-arrow-right-square-fill"></i></a></td>
+						</tr>
+					</tbody>
+				</table>
+				<input sec:authorize="hasRole('ROLE_ADMIN')" type="button" value="Añadir Grado"
+					th:href="@{/grados/addGrado}" />
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
